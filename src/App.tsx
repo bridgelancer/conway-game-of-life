@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
+import io from 'socket.io-client';
 import './App.css';
 
 function App() {
+  useEffect(
+    () => {
+      const socket = io('http://127.0.0.1:5000/test', {transports: ['websocket']})
+      socket.on('connect', () => {
+        socket.emit('my event', {'data': 'hi'})
+
+      })
+      socket.on('connect', () => {
+        socket.emit('my event', {'data': 'hi'})
+
+      })
+      socket.on('my response', (event: any) => console.log(event.data))
+    }, []
+  )
+
   return (
     <div className="App">
       <header className="App-header">
