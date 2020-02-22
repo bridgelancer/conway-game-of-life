@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
 import io from 'socket.io-client';
-import './App.css';
+import logo from '../static/logo.svg';
+import '../styles/App.css';
 
 function App() {
   useEffect(
