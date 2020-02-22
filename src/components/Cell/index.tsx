@@ -20,7 +20,6 @@ const Cell = (props: any) => {
       width={10}
       height={10}
       fill={color}
-      shadowBlur={2}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

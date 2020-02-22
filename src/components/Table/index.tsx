@@ -1,14 +1,7 @@
 import React from 'react'
-import * as R from 'ramda'
 
 import Cell from '../Cell/'
-
-import { useTableStateHook } from './hooks'
-
-interface cellState {
-  color: string
-  fixed: boolean
-}
+import { cellState } from '../types'
 
 const Row = (props: any) => {
   const { row, rowIndex, handleBoardChange } = props;
@@ -17,7 +10,15 @@ const Row = (props: any) => {
       {
         row.map(
           (cell: any, colIndex: number) => {
-            return <Cell {...cell} row={rowIndex} column={colIndex} handleBoardChange={handleBoardChange}/>
+            return (
+              <Cell
+                {...cell}
+                key={colIndex}
+                row={rowIndex}
+                column={colIndex}
+                handleBoardChange={handleBoardChange}
+              />
+            )
           }
         )
       }
@@ -25,20 +26,21 @@ const Row = (props: any) => {
   )
 }
 
-const Table = () => {
-  const { board, setBoard } = useTableStateHook()
-
-  const handleBoardChange = (row: number, column: number, attr: string, value: any) => {
-    setBoard(
-      R.set(R.lensPath([row, column, attr]), value, board)
-    )
-  }
+const Table = (props: any) => {
+  const { board, handleBoardChange } = props;
 
   return (
     <>
       {
         board.map((row: cellState[], rowIndex: number) => {
-          return <Row row={row} rowIndex={rowIndex} handleBoardChange={handleBoardChange}/>
+          return (
+            <Row
+              key={rowIndex}
+              row={row}
+              rowIndex={rowIndex}
+              handleBoardChange={handleBoardChange}
+            />
+          )
         })
       }
     </>
