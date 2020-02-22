@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
-import io from 'socket.io-client';
+import React, { useEffect, useContext } from 'react';
+
+import SocketContext from '../utils/sockets/socket-context';
 import logo from '../static/logo.svg';
 import '../styles/App.css';
 
 function App() {
+  const s = useContext(SocketContext);
+
   useEffect(
     () => {
-      const socket = io('http://127.0.0.1:5000/test', {transports: ['websocket']})
-      socket.on('connect', () => {
-        socket.emit('my event', {'data': 'hi'})
+      s.socket.on('connect', () => {
+        s.socket.emit('my event', {'data': 'hi'})
 
       })
-      socket.on('connect', () => {
-        socket.emit('my event', {'data': 'hi'})
-
+      s.socket.on('connect', () => {
+        s.socket.emit('my event', {'data': 'hi'})
       })
-      socket.on('my response', (event: any) => console.log(event.data))
-    }, []
+      s.socket.on('my response', (event: any) => console.log(event.data))
+    }, [s.socket]
   )
 
   return (
