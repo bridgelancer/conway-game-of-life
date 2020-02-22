@@ -3,23 +3,24 @@ import { Rect } from 'react-konva';
 
 import { useCellStatesHook } from './hooks';
 
-const Cell = () => {
+const Cell = (props: any) => {
+  const { row, column } = props;
+
   const {
     color,
     handleClick,
     handleMouseEnter,
     handleMouseLeave,
-  } = useCellStatesHook()
-
+  } = useCellStatesHook(props);
 
   return (
     <Rect
-      x={20}
-      y={20}
-      width={50}
-      height={50}
+      x={11* (column+1)}
+      y={11* (row+1)}
+      width={10}
+      height={10}
       fill={color}
-      shadowBlur={5}
+      shadowBlur={2}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
