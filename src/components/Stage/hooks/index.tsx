@@ -22,10 +22,8 @@ for (let r = 0; r < ROWS; r++){
   }
 }
 
-const logBoardUpdate = (socket: SocketIOClient.Socket) => {
-  socket.on('boardUpdated', (event: any) => {
-    console.log('hi update')
-  })
+const onBoardUpdate = (soc: SocketIOClient.Socket, callback: any) => {
+  soc.on('boardUpdated', callback)
 }
 
 export const useTableStateHook = () => {
@@ -43,13 +41,21 @@ export const useTableStateHook = () => {
 
   useEffect(
     () => {
-      logBoardUpdate(socket)
+      onBoardUpdate(socket, handleExternalBoardUpdate)
     }, [socket]
   )
 
+  const handleExternalBoardUpdate = (boardString: string) => {
+    const { data: updatedBoard } = JSON.parse(boardString)
+    setBoard((state: any) => {
+      return updatedBoard
+    })
+  }
+
+
   const handleCellPlacement = () => {
     // make all the cells to turn from selected to fixed
-    const convertedBoard = (state: any) => state.map(
+    const convertedBoard = (board: any) => board.map(
       (row: cellState[]) =>
         row.map(
           (cell: cellState) => {
@@ -64,8 +70,7 @@ export const useTableStateHook = () => {
 
     setBoard(convertedBoard)
     // send a request
-    console.log(JSON.stringify({data: board}))
-    socket.emit('boardUpdate', JSON.stringify({data: board}))
+    socket.emit('boardUpdate', JSON.stringify({data: convertedBoard(board)}))
   }
 
   return {
@@ -73,5 +78,6 @@ export const useTableStateHook = () => {
     setBoard,
     handleBoardChange,
     handleCellPlacement,
+    handleExternalBoardUpdate,
   }
 }
