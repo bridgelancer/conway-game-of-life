@@ -1,24 +1,12 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react'
 
-import SocketContext from '../utils/sockets/socket-context';
-import logo from '../static/logo.svg';
-import '../styles/App.css';
+import logo from '../static/logo.svg'
+import '../styles/App.css'
+
+import { useConfirmConnectionHook } from './hooks';
 
 function App() {
-  const s = useContext(SocketContext);
-
-  useEffect(
-    () => {
-      s.socket.on('connect', () => {
-        s.socket.emit('my event', {'data': 'hi'})
-
-      })
-      s.socket.on('connect', () => {
-        s.socket.emit('my event', {'data': 'hi'})
-      })
-      s.socket.on('my response', (event: any) => console.log(event.data))
-    }, [s.socket]
-  )
+  useConfirmConnectionHook();
 
   return (
     <div className="App">
@@ -37,7 +25,7 @@ function App() {
         </a>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
