@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import * as R from 'ramda'
 
+import { useContext, useEffect } from 'react';
+import SocketContext from '../../../utils/sockets/socket-context';
+
 import { cellState } from '../../types'
 
 const ROWS = 50
@@ -19,11 +22,15 @@ for (let r = 0; r < ROWS; r++){
   }
 }
 
+const logBoardUpdate = (socket: SocketIOClient.Socket) => {
+  socket.on('boardUpdated', (event: any) => {
+    console.log('hi update')
+  })
+}
+
 export const useTableStateHook = () => {
   const [board, setBoard] = useState(defaultBoard)
-
   const handleBoardChange = (row: number, column: number, attr: string, value: any) => {
-
     setBoard(
       state => {
         return R.set(R.lensPath([row, column, attr]), value, state)
@@ -31,9 +38,17 @@ export const useTableStateHook = () => {
     )
   }
 
+  const s = useContext(SocketContext)
+  const { socket } = s
+
+  useEffect(
+    () => {
+      logBoardUpdate(socket)
+    }, [socket]
+  )
+
   const handleCellPlacement = () => {
-    // make all the cells to turn from selected to fix
-    console.log(board, 'in handle cell placement')
+    // make all the cells to turn from selected to fixed
     const convertedBoard = (state: any) => state.map(
       (row: cellState[]) =>
         row.map(
@@ -48,8 +63,9 @@ export const useTableStateHook = () => {
     )
 
     setBoard(convertedBoard)
-    console.log('converted board', board)
     // send a request
+    console.log(JSON.stringify({data: board}))
+    socket.emit('boardUpdate', JSON.stringify({data: board}))
   }
 
   return {
