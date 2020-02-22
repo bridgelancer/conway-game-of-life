@@ -1,32 +1,16 @@
-import React, { useState } from 'react'
-
+import React from 'react'
 import { Rect } from 'react-konva';
-import Konva from 'konva';
+
+import { useCellStatesHook } from './hooks';
 
 const Cell = () => {
-  const [color, setColor] = useState('green')
-  const [selected, setSelected] = useState(false)
+  const {
+    color,
+    handleClick,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useCellStatesHook()
 
-  const handleMouseEnter = (() => {
-    if (!selected){
-      setColor('darkGreen')
-    }
-  })
-
-  const handleMouseLeave = (() => {
-    if (!selected){
-      setColor('green')
-    }
-  })
-
-  const handleClick = () => {
-    if (!selected) {
-      setColor('red')
-    } else {
-      setColor('green')
-    }
-    setSelected(!selected)
-  }
 
   return (
     <Rect
