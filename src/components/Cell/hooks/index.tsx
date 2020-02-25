@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-export const DEFAULT_COLOR = 'white'
-export const HIGHLIGHT_COLOR = 'grey'
+export const DEFAULT_COLOR = 'rgb(255, 255, 255)'
+export const HIGHLIGHT_COLOR = 'rgb(60, 60, 60)'
 export const SELECTED_COLOR = 'red'
 
 export const useCellStatesHook = (props: any) => {
@@ -48,7 +48,7 @@ export const useCellStatesHook = (props: any) => {
     }
   }
 
-  // Only change state of cell and board if the cell is not fied
+  // Only change state of cell and board if the cell is not fixed
   const handleClick = () => {
     if(!fixed) {
       if (!selected) {
