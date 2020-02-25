@@ -26,6 +26,10 @@ const onBoardUpdate = (soc: SocketIOClient.Socket, callback: any) => {
   soc.on('boardUpdated', callback)
 }
 
+const onTick = (soc: SocketIOClient.Socket, callback: any) => {
+  soc.on('tick', callback)
+}
+
 export const useTableStateHook = () => {
   const [board, setBoard] = useState(defaultBoard)
   const handleBoardChange = (row: number, column: number, attr: string, value: any) => {
@@ -42,6 +46,7 @@ export const useTableStateHook = () => {
   useEffect(
     () => {
       onBoardUpdate(socket, handleExternalBoardUpdate)
+      onTick(socket, handleExternalBoardUpdate)
     }, [socket]
   )
 
@@ -55,7 +60,7 @@ export const useTableStateHook = () => {
 
   const handleCellPlacement = () => {
     // make all the cells to turn from selected to fixed
-    const convertedBoard = (board: any) => board.map(
+    const convertBoard = (board: any) => board.map(
       (row: cellState[]) =>
         row.map(
           (cell: cellState) => {
@@ -68,9 +73,11 @@ export const useTableStateHook = () => {
       )
     )
 
-    setBoard(convertedBoard)
+    setBoard(convertBoard)
+    const convertedBoard = convertBoard(board)
+
     // send a request
-    socket.emit('boardUpdate', JSON.stringify({data: convertedBoard(board)}))
+    socket.emit('boardUpdate', JSON.stringify({data: convertedBoard}))
   }
 
   return {
