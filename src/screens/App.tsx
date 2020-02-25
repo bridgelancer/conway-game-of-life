@@ -12,7 +12,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          My Conway App
         </p>
         <Stage />
       </header>

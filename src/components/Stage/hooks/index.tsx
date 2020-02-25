@@ -52,22 +52,30 @@ export const useTableStateHook = () => {
 
   const handleExternalBoardUpdate = (boardString: string) => {
     const { data: updatedBoard } = JSON.parse(boardString)
-    setBoard((state: any) => {
-      return updatedBoard
-    })
+    const convertBoard = (board: any) => updatedBoard.map(
+      (row: cellState[], r: number) =>
+        row.map(
+          (cell: cellState, c: number) => {
+            cell.selected = board[r][c].selected || false
+            return cell
+          }
+      )
+    )
+    setBoard(convertBoard)
   }
 
 
   const handleCellPlacement = () => {
     // make all the cells to turn from selected to fixed
     const convertBoard = (board: any) => board.map(
-      (row: cellState[]) =>
+      (row: cellState[], r: number) =>
         row.map(
-          (cell: cellState) => {
+          (cell: cellState, c: number) => {
             if (cell.selected) {
               cell.color = 'black'
               cell.fixed = true
             }
+            delete cell.selected
             return cell
           }
       )

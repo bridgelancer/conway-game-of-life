@@ -5,7 +5,14 @@ export const HIGHLIGHT_COLOR = 'grey'
 export const SELECTED_COLOR = 'red'
 
 export const useCellStatesHook = (props: any) => {
-  const { color: upstreamColor, selected: defaultSelect, fixed, row, column, handleBoardChange} = props;
+  const {
+    color: upstreamColor,
+    selected: defaultSelect,
+    fixed,
+    row,
+    column,
+    handleBoardChange,
+  } = props;
 
   const [color, setColor] = useState(upstreamColor)
   const [selected, setSelected] = useState(defaultSelect)
@@ -46,13 +53,11 @@ export const useCellStatesHook = (props: any) => {
     if(!fixed) {
       if (!selected) {
         setColor(SELECTED_COLOR)
-        handleBoardChange(row, column, 'selected', true)
-        setSelected(true)
       } else {
         setColor(DEFAULT_COLOR)
-        handleBoardChange(row, column, 'selected', false)
-        setSelected(false)
       }
+      handleBoardChange(row, column, 'selected', !selected)
+      setSelected(!selected)
     }
   }
 
