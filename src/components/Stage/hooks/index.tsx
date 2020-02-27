@@ -6,6 +6,12 @@ import SocketContext from '../../../utils/sockets/socket-context';
 
 import { cellState } from '../../types'
 import { SELECTED_COLOR } from '../../Cell/hooks'
+import {
+  block,
+  beehive,
+  blinker,
+  toad,
+} from './config'
 
 const ROWS = 50
 const COLUMNS = 100
@@ -29,6 +35,15 @@ const onBoardUpdate = (soc: SocketIOClient.Socket, callback: any) => {
 
 const onTick = (soc: SocketIOClient.Socket, callback: any) => {
   soc.on('tick', callback)
+}
+
+const checkEmpty = (board: any, r: number, c: number, numToCheck: number) => {
+  for (let i=r; i<=r+numToCheck; i++)
+    for (let j=c; j<c+numToCheck; j++){
+      if (board[i][j].fixed || board[i][j].selected)
+        return false
+    }
+  return true
 }
 
 export const useTableStateHook = () => {
@@ -94,34 +109,39 @@ export const useTableStateHook = () => {
     socket.emit('boardUpdate', JSON.stringify({data: convertedBoard}))
   }
 
-  const checkEmpty = (board: any, r: number, c: number) => {
-    for (let i=r; i<=r+2; i++)
-      for (let j=c; j<c+2; j++){
-        if (board[i][j].fixed || board[i][j].selected)
-          return false
-      }
-    return true
-  }
+  const patternHandler = (pattern: any) => () => {
+    const size = Math.max(...pattern.map(([r, c]: number[]) => {
+      return Math.max(r, c)
+    }))
 
-  const handleBlockInput = (): any => {
-    const r = Math.round(Math.random() * (49 - 2))
-    const c = Math.round(Math.random() * (99 - 2))
+    const r = Math.round(Math.random() * ((ROWS-1) - size))
+    const c = Math.round(Math.random() * ((COLUMNS-1) - size))
 
-    if (checkEmpty(board, r, c)) {
+    if (checkEmpty(board, r, c, size)) {
       const updatedBoard = R.clone(board)
-      for (let i=r; i<=r+1; i++)
-        for (let j=c; j<=c+1; j++){
+      for (let i=r; i<=r+size; i++)
+        for (let j=c; j<=c+size; j++){
+          if (R.includes([i-r, j-c], pattern)) {
           updatedBoard[i][j].color = SELECTED_COLOR
           updatedBoard[i][j].selected = true
+          }
         }
 
       setBoard(state => updatedBoard)
     }
 
     else {
-      handleBlockInput()
+      patternHandler(pattern)()
     }
   }
+
+  const mapToolbarPatternToHandlers = {
+    block: patternHandler(block),
+    beehive: patternHandler(beehive),
+    blinker: patternHandler(blinker),
+    toad: patternHandler(toad),
+  }
+
   return {
     board,
     setBoard,
@@ -129,6 +149,6 @@ export const useTableStateHook = () => {
     handleCellPlacement,
     handleExternalBoardUpdate,
 
-    handleBlockInput,
+    mapToolbarPatternToHandlers
   }
 }

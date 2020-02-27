@@ -9,7 +9,7 @@ import { useTableStateHook } from './hooks'
 
 // Render canvas element to display the board
 const KonvaStage = () => {
-  const { board, handleBoardChange, handleCellPlacement, handleBlockInput } = useTableStateHook()
+  const { board, handleBoardChange, handleCellPlacement, mapToolbarPatternToHandlers } = useTableStateHook()
 
   return (
     <>
@@ -24,7 +24,7 @@ const KonvaStage = () => {
         Place cells
       </Button>
     <Toolbar
-      handleBlockInput={handleBlockInput}
+      mapToolbarPatternToHandlers={mapToolbarPatternToHandlers}
     />
     </>
   )
