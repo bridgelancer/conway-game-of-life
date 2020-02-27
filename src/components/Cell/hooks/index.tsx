@@ -1,8 +1,9 @@
+import Konva from 'konva'
 import { useState, useEffect } from 'react'
 
-export const DEFAULT_COLOR = 'rgb(255, 255, 255)'
-export const HIGHLIGHT_COLOR = 'rgb(60, 60, 60)'
-export const SELECTED_COLOR = 'red'
+export const DEFAULT_COLOR = '#ffffff'
+export const HIGHLIGHT_COLOR = '#ebebeb'
+export const SELECTED_COLOR = Konva.Util.getRandomColor()
 
 export const useCellStatesHook = (props: any) => {
   const {
@@ -20,6 +21,8 @@ export const useCellStatesHook = (props: any) => {
   // Change Cell display to the one passed down on update
   useEffect(() => {
     setColor(upstreamColor)
+    if (upstreamColor === SELECTED_COLOR)
+      setSelected(true)
     }, [upstreamColor]
   )
 
@@ -56,7 +59,7 @@ export const useCellStatesHook = (props: any) => {
       } else {
         setColor(DEFAULT_COLOR)
       }
-      handleBoardChange(row, column, 'selected', !selected)
+      handleBoardChange({row, column, color: SELECTED_COLOR, selected: !selected})
       setSelected(!selected)
     }
   }

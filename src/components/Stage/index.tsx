@@ -3,12 +3,13 @@ import { Stage, Layer } from 'react-konva';
 
 import { Button } from 'semantic-ui-react';
 import Table from '../Table/'
+import Toolbar from '../Toolbar'
 
 import { useTableStateHook } from './hooks'
 
 // Render canvas element to display the board
 const KonvaStage = () => {
-  const { board, handleBoardChange, handleCellPlacement } = useTableStateHook()
+  const { board, handleBoardChange, handleCellPlacement, handleBlockInput } = useTableStateHook()
 
   return (
     <>
@@ -22,6 +23,9 @@ const KonvaStage = () => {
       >
         Place cells
       </Button>
+    <Toolbar
+      handleBlockInput={handleBlockInput}
+    />
     </>
   )
 }
