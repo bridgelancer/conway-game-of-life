@@ -113,6 +113,25 @@ export const useTableStateHook = () => {
     socket.emit('boardUpdate', JSON.stringify({data: convertedBoard}))
   }
 
+  const handleClearSelected = () => {
+    // refactor - consider use board color instead
+    const convertBoard = (board: any) => board.map(
+      (row: cellState[], r: number) =>
+        row.map(
+          (cell: cellState, c: number) => {
+            if (cell.selected) {
+              cell.selected = false
+            }
+            return cell
+          }
+      )
+    )
+
+    setBoard(convertBoard)
+  }
+
+
+
   const patternHandler = (pattern: any) => () => {
     const size = Math.max(...pattern.map(([r, c]: number[]) => {
       return Math.max(r, c)
@@ -155,6 +174,7 @@ export const useTableStateHook = () => {
     setBoard,
     handleBoardChange,
     handleCellPlacement,
+    handleClearSelected,
     handleExternalBoardUpdate,
 
     mapToolbarPatternToHandlers

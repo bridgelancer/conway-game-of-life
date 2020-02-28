@@ -10,7 +10,13 @@ import { KonvaStageCSS } from './styles'
 
 // Render canvas element to display the board
 const KonvaStage = () => {
-  const { board, handleBoardChange, handleCellPlacement, mapToolbarPatternToHandlers } = useTableStateHook()
+  const {
+    board,
+    handleBoardChange,
+    handleCellPlacement,
+    handleClearSelected,
+    mapToolbarPatternToHandlers
+  } = useTableStateHook()
 
   return (
     <KonvaStageCSS>
@@ -31,7 +37,15 @@ const KonvaStage = () => {
         onClick={handleCellPlacement}
       >
         <Button.Content visible>Place cells </Button.Content>
-        <Button.Content hidden><Icon name='arrow right' /> </Button.Content>
+        <Button.Content hidden><Icon name='arrow up' /> </Button.Content>
+      </Button>
+      <Button
+        primary
+        animated="fade"
+        onClick={handleClearSelected}
+      >
+        <Button.Content visible>Clear selected</Button.Content>
+        <Button.Content hidden><Icon name='times' /> </Button.Content>
       </Button>
       <Toolbar
         mapToolbarPatternToHandlers={mapToolbarPatternToHandlers}
