@@ -12,3 +12,8 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.connectStatus {
+  font-size: 1rem;
+  margin-top: 1rem;
+}

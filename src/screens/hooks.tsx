@@ -1,11 +1,11 @@
 // Hooks for handling mounting and unmounting of the React App
-
-import { useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import SocketContext from '../utils/sockets/socket-context';
 
-const broadcastConfirmation = (socket: SocketIOClient.Socket) => {
+const broadcastConfirmation = (socket: SocketIOClient.Socket, setConnected: any) => {
   socket.on('confirm connect', () => {
     socket.emit('my broadcast event', {'data': `Echo hi from ${socket.id}`})
+    setConnected(true)
   })
 }
 
@@ -20,13 +20,18 @@ const handleSocketChange = (socket: SocketIOClient.Socket) => {
 
 export const useConfirmConnectionHook = () => {
   const s = useContext(SocketContext)
+  const [connected, setConnected] = useState(false)
   const { socket } = s
 
   useEffect(
     () => {
-      broadcastConfirmation(socket)
+      broadcastConfirmation(socket, setConnected)
       receiveResponse(socket)
       return handleSocketChange(socket)
     }, [socket]
   )
+
+  return {
+    connected,
+  }
 }
