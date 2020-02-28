@@ -1,32 +1,42 @@
 import React from 'react'
 import { Stage, Layer } from 'react-konva';
 
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import Table from '../Table/'
 import Toolbar from '../Toolbar'
 
 import { useTableStateHook } from './hooks'
+import { KonvaStageCSS } from './styles'
 
 // Render canvas element to display the board
 const KonvaStage = () => {
   const { board, handleBoardChange, handleCellPlacement, mapToolbarPatternToHandlers } = useTableStateHook()
 
   return (
-    <>
-      <Stage width={window.innerWidth} height={window.innerHeight-200}>
+    <KonvaStageCSS>
+      <Stage width={1000} height={550} id="stage" style={
+        {
+          border: 'solid',
+          padding: '1rem',
+          borderRadius: '2rem'
+        }
+      }>
         <Layer>
           <Table board={board} handleBoardChange={handleBoardChange}/>
         </Layer>
       </Stage>
       <Button
+        primary
+        animated="fade"
         onClick={handleCellPlacement}
       >
-        Place cells
+        <Button.Content visible>Place cells </Button.Content>
+        <Button.Content hidden><Icon name='arrow right' /> </Button.Content>
       </Button>
-    <Toolbar
-      mapToolbarPatternToHandlers={mapToolbarPatternToHandlers}
-    />
-    </>
+      <Toolbar
+        mapToolbarPatternToHandlers={mapToolbarPatternToHandlers}
+      />
+    </KonvaStageCSS>
   )
 }
 
