@@ -11,6 +11,10 @@ import {
   beehive,
   blinker,
   toad,
+  beacon,
+  loaf,
+  boat,
+  tub,
 } from './config'
 
 const ROWS = 50
@@ -140,6 +144,10 @@ export const useTableStateHook = () => {
     beehive: patternHandler(beehive),
     blinker: patternHandler(blinker),
     toad: patternHandler(toad),
+    beacon: patternHandler(beacon),
+    loaf: patternHandler(loaf),
+    boat: patternHandler(boat),
+    tub: patternHandler(tub),
   }
 
   return {
