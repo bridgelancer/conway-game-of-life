@@ -2,7 +2,6 @@ import Konva from 'konva'
 import { useState, useEffect } from 'react'
 
 export const DEFAULT_COLOR = '#ffffff'
-export const HIGHLIGHT_COLOR = '#ebebeb'
 export const SELECTED_COLOR = Konva.Util.getRandomColor()
 
 export const useCellStatesHook = (props: any) => {
@@ -16,6 +15,7 @@ export const useCellStatesHook = (props: any) => {
   } = props;
 
   const [color, setColor] = useState(upstreamColor)
+  const [highlighted, setHighlighted] = useState(false)
   const [selected, setSelected] = useState(defaultSelect)
 
   // Change Cell display to the one passed down on update
@@ -33,6 +33,10 @@ export const useCellStatesHook = (props: any) => {
     }
   }, [fixed])
 
+  useEffect(() => {
+    setHighlighted(selected)
+  }, [selected])
+
   const checkNotFixedAndSelected = () => {
     return !selected && !fixed
   }
@@ -40,13 +44,15 @@ export const useCellStatesHook = (props: any) => {
   // Highlight cell on mouse enter
   const handleMouseEnter = () => {
     if (checkNotFixedAndSelected()){
-      setColor(HIGHLIGHT_COLOR)
+      setHighlighted(true)
+      setColor(SELECTED_COLOR)
     }
   }
 
   // Revert to default color on mouse leave
   const handleMouseLeave = () => {
     if (checkNotFixedAndSelected()){
+      setHighlighted(false)
       setColor(DEFAULT_COLOR)
     }
   }
@@ -66,6 +72,7 @@ export const useCellStatesHook = (props: any) => {
 
   return {
     color,
+    highlighted,
     handleClick,
     handleMouseEnter,
     handleMouseLeave,
