@@ -15,8 +15,8 @@ const Cell = (props: any) => {
 
   return (
     <Rect
-      x={11* (column+1)}
-      y={11* (row+1)}
+      x={11* (column)}
+      y={11* (row)}
       width={10}
       height={10}
       fill={color}
