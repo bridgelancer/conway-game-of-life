@@ -26,6 +26,7 @@ const Toolbar = (props: any) => {
       <BlockImage onClick={handleBlockInput} />
       <BeehiveImage onClick={handleBeehiveInput} />
       <BeaconImage onClick={handleBeaconInput} />
+      <TubImage onClick={handleTubInput} />
       <LoafImage onClick={handleLoafInput} />
       <BoatImage onClick={handleBoatInput} />
     </ToolbarCSS>
