@@ -1,5 +1,5 @@
 import React from 'react'
-
+import 'semantic-ui-css/semantic.min.css'
 import '../styles/App.css'
 import Stage from '../components/Stage'
 
@@ -12,7 +12,7 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <p>
-          My Conway App
+          Conway's Game of Life
         </p>
         <Stage />
       </header>
