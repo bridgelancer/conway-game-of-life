@@ -116,14 +116,11 @@ export const useTableStateHook = () => {
   }
 
   const handleClearSelected = () => {
-    // refactor - consider use board color instead
     const convertBoard = (board: any) => board.map(
       (row: cellState[], r: number) =>
         row.map(
           (cell: cellState, c: number) => {
-            if (cell.selected) {
-              cell.selected = false
-            }
+            cell.selected = false
             return cell
           }
       )
