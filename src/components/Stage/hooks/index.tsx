@@ -41,6 +41,7 @@ const onTick = (soc: SocketIOClient.Socket, callback: any) => {
   soc.on('tick', callback)
 }
 
+
 const checkEmpty = (board: any, r: number, c: number, numToCheck: number) => {
   for (let i=r; i<=r+numToCheck; i++)
     for (let j=c; j<c+numToCheck; j++){
@@ -52,6 +53,7 @@ const checkEmpty = (board: any, r: number, c: number, numToCheck: number) => {
 
 export const useTableStateHook = () => {
   const [board, setBoard] = useState(defaultBoard)
+
   const handleBoardChange = (payload: any) => {
     const { row, column, color, selected } = payload
 

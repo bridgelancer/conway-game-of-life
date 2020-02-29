@@ -13,7 +13,11 @@
   color: white;
 }
 
+.connectContainer {
+  margin: 1rem;
+}
+
 .connectStatus {
   font-size: 1rem;
-  margin-top: 1rem;
+  margin: 0;
 }
