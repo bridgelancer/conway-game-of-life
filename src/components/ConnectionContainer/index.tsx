@@ -3,11 +3,12 @@ import React from 'react'
 import ConnectionStatus from './components/ConnectionStatus'
 import TimerDisplay from './components/TimerDisplay'
 
-export const ConnectionContainer = () => {
+export const ConnectionContainer = (props: any) => {
+  const { connected, cycle } = props
   return (
     <div className="connectContainer">
-      <ConnectionStatus />
-      <TimerDisplay />
+      <ConnectionStatus connected={connected}/>
+      <TimerDisplay cycle={cycle}/>
     </div>
   )
 }

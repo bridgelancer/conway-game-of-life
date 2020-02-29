@@ -1,8 +1,7 @@
 import React from 'react'
-import { useConfirmConnectionHook } from 'src/screens/hooks'
 
-const ConnectionStatus = () => {
-  const { connected } = useConfirmConnectionHook()
+const ConnectionStatus = (props: any) => {
+  const { connected } = props
 
   return (
     <p className="connectStatus">

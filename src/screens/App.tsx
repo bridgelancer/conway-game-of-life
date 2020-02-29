@@ -6,8 +6,10 @@ import '../styles/App.css'
 
 import Stage from '../components/Stage'
 import ConnectionContainer from 'src/components/ConnectionContainer'
+import { useConfirmConnectionHook } from './hooks'
 
 const App = () => {
+  const { connected, cycle } = useConfirmConnectionHook()
   return (
     <div className="App">
       <Helmet>
@@ -21,7 +23,7 @@ const App = () => {
         <Media query="(min-width: 1024px)" render ={() =>(
           <>
             <Stage />
-            <ConnectionContainer />
+            <ConnectionContainer connected={connected} cycle={cycle}/>
           </>
         )}
         />

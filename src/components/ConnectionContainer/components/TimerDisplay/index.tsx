@@ -1,8 +1,7 @@
 import React from 'react'
-import { useConfirmConnectionHook } from 'src/screens/hooks'
 
-const TimerDisplay = () => {
-  const { cycle }: any = useConfirmConnectionHook()
+const TimerDisplay = (props: any) => {
+  const { cycle } = props
 
   if (typeof(cycle) === 'undefined')
     return <></>
