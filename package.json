@@ -4,8 +4,7 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/react": "^9.3.2", "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/ramda": "^0.26.41",
@@ -31,7 +30,7 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -53,8 +52,5 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.7"
-  },
-  "engines": {
-    "node": "12.14.0"
   }
 }
