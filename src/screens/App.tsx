@@ -5,11 +5,7 @@ import '../styles/App.css'
 import Stage from '../components/Stage'
 import ConnectionContainer from 'src/components/ConnectionContainer'
 
-import { useConfirmConnectionHook } from './hooks'
-
 const App = () => {
-  const { connected } = useConfirmConnectionHook()
-
   return (
     <div className="App">
       <header className="App-header">
