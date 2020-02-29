@@ -10,7 +10,7 @@ export const ToolbarCSS = styled.div`
   border-radius: 1rem;
 
 
-  svg{
+  svg {
     margin: 0.5rem;
     &:hover {
       cursor: pointer;
