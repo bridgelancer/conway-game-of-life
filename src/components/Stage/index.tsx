@@ -20,7 +20,7 @@ const KonvaStage = () => {
 
   return (
     <KonvaStageCSS>
-      <Stage width={1000} height={550} id="stage" style={
+      <Stage width={1100} height={550} id="stage" style={
         {
           border: 'solid',
           padding: '1rem',
