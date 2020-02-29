@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import Media from 'react-media'
 import 'semantic-ui-css/semantic.min.css'
 import '../styles/App.css'
 
@@ -10,8 +11,6 @@ const App = () => {
   return (
     <div className="App">
       <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="description" content="An implementation of Conway's Game of Life" />
         <link rel="icon" href="/block.svg" />
         <title> Conway GoL </title>
       </Helmet>
@@ -19,8 +18,17 @@ const App = () => {
         <p>
           Conway's Game of Life
         </p>
-        <Stage />
-        <ConnectionContainer />
+        <Media query="(min-width: 1024px)" render ={() =>(
+          <>
+            <Stage />
+            <ConnectionContainer />
+          </>
+        )}
+        />
+        <Media query="(max-width: 1023px)" render ={() =>(
+          <p> Currently unsupported for mobile devices </p>
+        )}
+        />
       </header>
     </div>
   )
