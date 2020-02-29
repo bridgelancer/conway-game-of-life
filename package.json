@@ -54,7 +54,7 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.7"
   },
-  "engine": {
+  "engines": {
     "node": "12.14.0"
   }
 }
