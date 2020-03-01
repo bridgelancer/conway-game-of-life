@@ -96,6 +96,10 @@ A canva element is used to represent the current state of the board. This allows
 
 ## Tradeoffs and Todos
 
+After some consideration, I decided not to support mobile version due to time
+constraint. A must-do is to support web version of the canvas and dynamic grid
+sizing for accessibility reason.
+
 The performance of the React app, on top of Konva, is slighlty below my original estiamtion. Considerable lags could be observed when mouseovering individual cells on the canvas. Performance enhancement regarding the rendering of the canvas, including caching of images and utilization of OffscreenCanvas, might be needed.
 
 Similar to that in the backend, the user inputs are sent to the server with the whole board. This is inefficient as only a tiny proportion of cells are updated each time when a user submits the changes. The update of board and the respective rendering should take individual cells as unit instead of whole board in order to support any bigger board in the future.
