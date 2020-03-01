@@ -1,4 +1,4 @@
-// Hooks for handling mounting and unmounting of the React App
+// Hooks for handling socket connection status when App mounts
 import { useState, useContext, useEffect } from 'react'
 import SocketContext from '../utils/sockets/socket-context'
 

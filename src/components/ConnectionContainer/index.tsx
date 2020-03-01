@@ -1,3 +1,4 @@
+// Wrapper component for displaying connection status to backend
 import React from 'react'
 
 import ConnectionStatus from './components/ConnectionStatus'

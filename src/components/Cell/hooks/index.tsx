@@ -1,3 +1,4 @@
+// Hooks for handling Cell state and modifies board
 import Konva from 'konva'
 import { useState, useEffect } from 'react'
 

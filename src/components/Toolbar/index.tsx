@@ -1,3 +1,4 @@
+// Toolbar with hoverable SVG images as buttons
 import React from 'react'
 import { ToolbarCSS } from './styles'
 

@@ -1,3 +1,4 @@
+// Handle the table state for interfacing with API and reconciling UI
 import { useState } from 'react'
 import * as R from 'ramda'
 

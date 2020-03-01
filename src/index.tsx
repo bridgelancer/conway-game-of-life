@@ -10,6 +10,7 @@ import './styles/index.css';
 import App from './screens/App';
 import * as serviceWorker from './serviceWorker';
 
+// Use the socket provided in Socket context
 ReactDOM.render(
   <BrowserRouter>
     <Socket.Provider value={{socket}}>
